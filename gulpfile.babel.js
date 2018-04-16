@@ -19,7 +19,6 @@ const paths = {
     dest: 'build/assets/styles/'
   },
   scripts: {
-    src: 'src/assets/scripts/**/*.js',
     dest: 'build/assets/scripts/'
   },
   markup: {
@@ -61,7 +60,10 @@ function serve(done) {
 export const clean = () => del(['build']);
 
 export function scripts() {
-  return gulp.src(paths.scripts.src, { sourcemaps: true })
+  return gulp.src([
+    // Add scripts in order that you need them in the concatenated file
+    'src/assets/scripts/main.js'
+  ])
     .pipe(babel())
     .pipe(uglify())
     .pipe(concat('main.min.js'))
